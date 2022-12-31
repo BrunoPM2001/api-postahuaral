@@ -4,6 +4,7 @@ import com.example.postahuaral.models.Paciente;
 import com.example.postahuaral.repository.UsuarioRepo;
 import com.example.postahuaral.services.UsuarioService;
 import com.example.postahuaral.models.Usuario;
+import com.example.postahuaral.utils.Tokens;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -23,11 +24,13 @@ public class UsuarioImp implements UsuarioService {
     @Qualifier("UsuarioRepo")
     private final UsuarioRepo usuarioRepo;
 
+    private final Tokens jwt;
 
 
     @Autowired
-    public UsuarioImp(UsuarioRepo usuarioRepo) {
+    public UsuarioImp(UsuarioRepo usuarioRepo, Tokens jwt) {
         this.usuarioRepo = usuarioRepo;
+        this.jwt = jwt;
     }
 
     @Override
@@ -70,15 +73,14 @@ public class UsuarioImp implements UsuarioService {
         try {
             Usuario u = usuarioRepo.findByCorreo(usuario.getCorreo());
             if(u.getPassword().equals(usuario.getPassword())) {
-                String token = "token";
+                String token = jwt.createToken(usuario);
                 result.put("Token", token);
                 u.setPassword(null);
                 result.put("Usuario", u);
-                return result;
             } else {
                 result.put("Message", "Fail, datos incorrectos");
-                return result;
             }
+            return result;
         } catch (Exception ignored) {
             result.put("Message", "Fail");
             return result;
