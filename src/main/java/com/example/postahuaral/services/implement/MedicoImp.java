@@ -31,4 +31,10 @@ public class MedicoImp implements MedicoService {
         List<Medico> result = medicoRepo.findByEspecialidadIdespecialidad(idespecialidad);
         return result;
     }
+
+    @Override
+    public Medico getMedico(Long id) {
+        Medico result = medicoRepo.findByIdmedico(id);
+        return result;
+    }
 }

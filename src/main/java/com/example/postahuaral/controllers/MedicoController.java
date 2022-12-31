@@ -25,4 +25,9 @@ public class MedicoController {
         return medicoService.getAllMedicosFromOneEspecialidad(idEspecialidad);
     }
 
+    @GetMapping("getMedico")
+    public Medico getMedico(@RequestParam(value = "id") Long id) {
+        return medicoService.getMedico(id);
+    }
+
 }

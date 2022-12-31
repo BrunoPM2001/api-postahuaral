@@ -16,4 +16,7 @@ public interface MedicoRepo extends JpaRepository<Medico, Long> {
     @Query("select m from Medico m where m.especialidad.idespecialidad = ?1")
     List<Medico> findByEspecialidadIdespecialidad(Long id);
 
+    @Query("select m from Medico m where m.idmedico = ?1")
+    Medico findByIdmedico(Long id);
+
 }

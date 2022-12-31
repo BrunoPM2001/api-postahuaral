@@ -8,5 +8,6 @@ public interface MedicoService {
 
     List<Medico> getAllMedicos();
     List<Medico> getAllMedicosFromOneEspecialidad(Long idespecialidad);
+    Medico getMedico(Long id);
 
 }
