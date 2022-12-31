@@ -10,10 +10,10 @@ import java.util.List;
 @Repository("PacienteRepo")
 public interface PacienteRepo extends JpaRepository<Paciente, Long> {
 
-    @Query("select u from Paciente u")
+    @Query("select p from Paciente p")
     List<Paciente> findAll();
 
-    @Query("select u from Paciente u where u.idpaciente = ?1")
+    @Query("select p from Paciente p where p.idpaciente = ?1")
     Paciente findByIdpaciente(Long id);
 
 }
