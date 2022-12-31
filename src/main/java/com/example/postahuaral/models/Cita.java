@@ -1,5 +1,6 @@
 package com.example.postahuaral.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class Cita implements Serializable {
     @JoinColumn(name = "idmedico")
     private Medico medico;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idusuario")
     private Usuario usuario;

@@ -73,7 +73,8 @@ public class UsuarioImp implements UsuarioService {
         try {
             Usuario u = usuarioRepo.findByCorreo(usuario.getCorreo());
             if(u.getPassword().equals(usuario.getPassword())) {
-                String token = jwt.createToken(usuario);
+                u.setPassword(null);
+                String token = jwt.createToken(u);
                 result.put("Token", token);
                 u.setPassword(null);
                 result.put("Usuario", u);
