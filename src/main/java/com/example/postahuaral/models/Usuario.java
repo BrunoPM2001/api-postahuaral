@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idusuario;
     @Column(nullable = false, unique = true)
     private String correo;

@@ -12,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor @NoArgsConstructor
 public class Paciente implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idpaciente;
     private String nombres;
     private String apellidos;

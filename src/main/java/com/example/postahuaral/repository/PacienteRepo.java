@@ -12,4 +12,8 @@ public interface PacienteRepo extends JpaRepository<Paciente, Long> {
 
     @Query("select u from Paciente u")
     List<Paciente> findAll();
+
+    @Query("select u from Paciente u where u.idpaciente = ?1")
+    Paciente findByIdpaciente(Long id);
+
 }
