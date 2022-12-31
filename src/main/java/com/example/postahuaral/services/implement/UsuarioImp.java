@@ -23,6 +23,8 @@ public class UsuarioImp implements UsuarioService {
     @Qualifier("UsuarioRepo")
     private final UsuarioRepo usuarioRepo;
 
+
+
     @Autowired
     public UsuarioImp(UsuarioRepo usuarioRepo) {
         this.usuarioRepo = usuarioRepo;
@@ -60,5 +62,26 @@ public class UsuarioImp implements UsuarioService {
     @Override
     public String deleteUsuario() {
         return null;
+    }
+
+    @Override
+    public Map<String, Object> login(Usuario usuario) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Usuario u = usuarioRepo.findByCorreo(usuario.getCorreo());
+            if(u.getPassword().equals(usuario.getPassword())) {
+                String token = "token";
+                result.put("Token", token);
+                u.setPassword(null);
+                result.put("Usuario", u);
+                return result;
+            } else {
+                result.put("Message", "Fail, datos incorrectos");
+                return result;
+            }
+        } catch (Exception ignored) {
+            result.put("Message", "Fail");
+            return result;
+        }
     }
 }

@@ -11,4 +11,5 @@ public interface UsuarioService {
     String createUsuario();
     String updateUsuario();
     String deleteUsuario();
+    Map<String, Object> login(Usuario usuario);
 }
