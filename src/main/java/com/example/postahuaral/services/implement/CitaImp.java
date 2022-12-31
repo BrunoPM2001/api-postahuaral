@@ -52,6 +52,11 @@ public class CitaImp implements CitaService {
             //  Búsqueda de los objetos correspondientes a las ids de usuario y médico
             Usuario u = usuarioRepo.findByIdusuario(citaDatos.getIdusuario());
             Medico m = medicoRepo.findByIdmedico(citaDatos.getIdmedico());
+            //  Cálculo de los costos
+            double pagotransferencia = (m.getEspecialidad().getCosto() * 0.029) + (1.17);
+            double pagototal = pagotransferencia + m.getEspecialidad().getCosto();
+            c.setPagotransferencia(pagotransferencia);
+            c.setPagototal(pagototal);
             //  Añadir esos objetos a la cita para guardar el registro en la entidad
             c.setUsuario(u);
             c.setMedico(m);

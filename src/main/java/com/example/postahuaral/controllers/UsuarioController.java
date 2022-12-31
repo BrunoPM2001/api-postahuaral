@@ -30,16 +30,6 @@ public class UsuarioController {
         return null;
     }
 
-    @PutMapping(value = "updateUsuario")
-    public Map<String, String> updateUsuario() {
-        return null;
-    }
-
-    @DeleteMapping(value = "deleteUsuario")
-    public Map<String, String> deleteUsuario() {
-        return null;
-    }
-
     @PutMapping(value = "login")
     public Map<String, Object> login(@RequestBody Usuario usuario) {
         return usuarioService.login(usuario);

@@ -24,19 +24,4 @@ public class PacienteController {
         return pacienteService.getOnePaciente(id);
     }
 
-    @PostMapping(value = "createPaciente")
-    public Map<String, String> createPaciente() {
-        return null;
-    }
-
-    @PutMapping(value = "updatePaciente")
-    public Map<String, String> updatePaciente() {
-        return null;
-    }
-
-    @DeleteMapping(value = "deletePaciente")
-    public Map<String, String> deletePaciente() {
-        return null;
-    }
-
 }
