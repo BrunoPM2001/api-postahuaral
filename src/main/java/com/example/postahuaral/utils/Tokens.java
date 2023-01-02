@@ -41,7 +41,7 @@ public class Tokens {
                 .setId(Integer.toString(usuario.getIdusuario()))
                 .setIssuedAt(now)
                 .setSubject(usuario.getCorreo())
-                .claim("nombre", usuario.getPaciente().getNombres())
+                .claim("id", Integer.toString(usuario.getIdusuario()))
                 .setIssuer(issuer)
                 .signWith(signatureAlgorithm, signinKey);
 
@@ -57,6 +57,6 @@ public class Tokens {
         Claims claims = Jwts.parser().setSigningKey(Base64.getDecoder().decode(key))
                 .parseClaimsJws(token).getBody();
 
-        return claims.get("nombre", String.class);
+        return claims.get("id", String.class);
     }
 }

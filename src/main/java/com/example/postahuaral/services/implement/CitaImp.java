@@ -38,19 +38,30 @@ public class CitaImp implements CitaService {
     }
 
     @Override
-    public List<Cita> getCitasByUsuario(Long id) {
-        List<Cita> result = citaRepo.findByUsuarioIdusuario(id);
-        return result;
+    public Map<String, Object> getCitasByUsuario(String token) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            String id = jwt.validateToken(token);
+            List<Cita> citas = citaRepo.findByUsuarioIdusuario(Long.parseLong(id));
+            result.put("Message", "Success");
+            result.put("Citas", citas);
+            return result;
+        } catch (Exception e) {
+            result.put("Message", "Sesión expirada o inválida");
+            System.out.println(e);
+            return result;
+        }
     }
 
     @Override
     public Map<String, Object> createCita(String token, CitaDatos citaDatos) {
         Map<String, Object> result = new HashMap<>();
         try {
-            String nombre = jwt.validateToken(token);
+            String id = jwt.validateToken(token);
+            System.out.println("ID: " + id);
             Cita c = citaDatos.getCita();
             //  Búsqueda de los objetos correspondientes a las ids de usuario y médico
-            Usuario u = usuarioRepo.findByIdusuario(citaDatos.getIdusuario());
+            Usuario u = usuarioRepo.findByIdusuario(Long.parseLong(id));
             Medico m = medicoRepo.findByIdmedico(citaDatos.getIdmedico());
             //  Cálculo de los costos
             double pagotransferencia = (m.getEspecialidad().getCosto() * 0.029) + (1.17);
@@ -61,7 +72,7 @@ public class CitaImp implements CitaService {
             c.setUsuario(u);
             c.setMedico(m);
             citaRepo.save(c);
-            result.put("Message", "Cita creado exitosamente por " + nombre);
+            result.put("Message", "Cita creado exitosamente por el usuario n° " + id);
             return result;
         } catch (Exception e) {
             result.put("Message", "Sesión expirada o inválida");

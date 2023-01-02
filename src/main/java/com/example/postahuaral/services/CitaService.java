@@ -9,6 +9,6 @@ import java.util.Map;
 
 public interface CitaService {
 
-    List<Cita> getCitasByUsuario(Long id);
+    Map<String, Object> getCitasByUsuario(String token);
     Map<String, Object> createCita(String token, CitaDatos citaDatos);
 }

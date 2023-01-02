@@ -16,8 +16,10 @@ public class CitaController {
     private CitaService citaService;
 
     @GetMapping("getCitasFromUsuario")
-    public List<Cita> getCitasFromUsuario(@RequestParam(value = "idusuario") Long id) {
-        return citaService.getCitasByUsuario(id);
+    public Map<String, Object> getCitasFromUsuario(
+            @RequestHeader(value = "Auth") String token
+    ) {
+        return citaService.getCitasByUsuario(token);
     }
 
     @PostMapping("createCita")
